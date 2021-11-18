@@ -75,7 +75,12 @@ namespace esc_uuid
             // 12 bit hi, set high 4 bits to '0001' for RFC 4122 version 1
             int hi = ((int)(time >> 48) & 0x0fff) | 0x1000;
 
-            nodeStr = String.Format("{0}-{1}-{2}-{3}-{4}", String.Format("{0:X}", low), String.Format("{0:X}", mid), String.Format("{0:X}", hi), String.Format("{0:X}", clock), node).ToLower();
+            String lowStr = String.Format("{0:X}", low);
+            String midStr = String.Format("{0:X}", mid);
+            String hiStr = String.Format("{0:X}", hi);
+            String clockStr = String.Format("{0:X}", clock);
+
+            nodeStr = String.Format("{0}-{1}-{2}-{3}-{4}", lowStr.PadLeft(8, '0'), midStr.PadLeft(4, '0'), hiStr.PadLeft(4, '0'), clockStr.PadLeft(4, '0'), node.PadLeft(12, '0')).ToLower();
 
             return nodeStr;
 
